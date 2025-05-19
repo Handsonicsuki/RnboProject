@@ -4,14 +4,15 @@ if(APPLE)
 endif()
 
 
-if (DEFINED ENV{BUILDROOT})
+if(DEFINED ENV{SSP_BUILDROOT})
+    set(BUILDROOT $ENV{SSP_BUILDROOT})
+elseif (DEFINED ENV{BUILDROOT})
     set(BUILDROOT $ENV{BUILDROOT})
-    set(CMAKE_SYSROOT ${BUILDROOT}/arm-rockchip-linux-gnueabihf/sysroot)
 else ()
-    message("warning: BUILDROOT environment variable assuming in $ENV{HOME}/buildroot")
-    set(BUILDROOT "$ENV{HOME}/buildroot/arm-rockchip-linux-gnueabihf_sdk-buildroot")
-    set(CMAKE_SYSROOT ${BUILDROOT}/arm-rockchip-linux-gnueabihf/sysroot)
+    message("warning: BUILDROOT environment variable missing")
 endif ()
+
+set(CMAKE_SYSROOT ${BUILDROOT}/arm-rockchip-linux-gnueabihf/sysroot)
 
 if (DEFINED ENV{TOOLSROOT})
     set(TOOLSROOT $ENV{TOOLSROOT})
@@ -70,3 +71,4 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DJUCE_CHECK_MEMORY_LEAKS=0")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILDROOT}/arm-rockchip-linux-gnueabihf/include/c++/8.4.0 ")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${BUILDROOT}/arm-rockchip-linux-gnueabihf/include/c++/8.4.0/arm-rockchip-linux-gnueabihf")
 
+set(TARGET_SSP 1)

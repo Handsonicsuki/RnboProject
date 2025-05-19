@@ -1,4 +1,4 @@
-# Building SSP modules from Max RNBO patches
+# Building SSP/XMX modules from Max RNBO patches
 
 this project is designed to allow non-developers to create modules for the Percussa SSP,  using  [Cycling 74s RNBO](https://cycling74.com/products/rnbo)
 
