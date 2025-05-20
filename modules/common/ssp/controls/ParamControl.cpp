@@ -13,6 +13,7 @@ void BaseParamControl::paramChanged(float) {
 juce::String BaseParamControl::getTextValue() {
     auto &p = param_;
     auto val = p.getCurrentValueAsText();
+    if (val == "-0.00") val = "0.00"; // juce bug?
     if (p.getLabel().length()) { val = val + " " + p.getLabel(); }
     return val;
 }
@@ -86,7 +87,7 @@ void SimpleParamControl::paint(juce::Graphics &g) {
 
     auto &p = param_;
 
-    g.setFont(juce::Font(juce::Font::getDefaultMonospacedFontName(), fh, juce::Font::plain));
+    g.setFont(juce::Font(juce::FontOptions(juce::Font::getDefaultMonospacedFontName(), fh, juce::Font::plain)));
 
     g.setColour(fg_);
     g.drawText(p.getName(32), 0, 0, w, fh, juce::Justification::centred);
@@ -108,7 +109,7 @@ void LineParamControl::paint(juce::Graphics &g) {
 
     auto &p = param_;
 
-    g.setFont(juce::Font(juce::Font::getDefaultMonospacedFontName(), fh, juce::Font::plain));
+    g.setFont(juce::Font(juce::FontOptions(juce::Font::getDefaultMonospacedFontName(), fh, juce::Font::plain)));
 
     g.setColour(active() ? fg_ : juce::Colours::grey);
     g.drawText(p.getName(32), 0, 0, w, fh, juce::Justification::centred);
@@ -131,7 +132,7 @@ void BarParamControl::paint(juce::Graphics &g) {
 
     auto &p = param_;
 
-    g.setFont(juce::Font(juce::Font::getDefaultMonospacedFontName(), fh, juce::Font::plain));
+    g.setFont(juce::Font(juce::FontOptions(juce::Font::getDefaultMonospacedFontName(),  fh, juce::Font::plain)));
 
     g.setColour(active() ? fg_ : juce::Colours::grey);
     g.drawText(p.getName(32), 0, 0, w, fh, juce::Justification::centred);

@@ -5,6 +5,7 @@
 #include "BaseView.h"
 #include "SSP.h"
 
+#include "Log.h"
 
 namespace ssp {
 
@@ -27,6 +28,8 @@ EditorHost::EditorHost(BaseProcessor *p, BaseView *e, bool compactUI, bool enabl
     setWantsKeyboardFocus(true);
     addChildComponent(editor_);
     if (compactUI_) { drawDefaults_ = false; }
+
+    if (compactUI_) { defaultBg_ = Colours::black; }
 
 
     if (enableSysEditor) {
@@ -94,12 +97,12 @@ void EditorHost::setMenuBounds(ValueButton &btn, unsigned r) {
 }
 
 void EditorHost::drawBasicPanel(Graphics &g) {
-    g.fillAll(Colour(0xff111111));
+    g.fillAll(defaultBg_);
 
 
     if (drawDefaults_) {
         // title
-        g.setFont(Font(Font::getDefaultMonospacedFontName(), 12 * COMPACT_UI_SCALE, Font::plain));
+        g.setFont(juce::Font(juce::FontOptions(juce::Font::getDefaultMonospacedFontName(), 12 * COMPACT_UI_SCALE, Font::plain)));
         g.setColour(Colours::yellow);
         g.drawSingleLineText(String(JucePlugin_Name) + " : " + String(JucePlugin_Desc) + String(" @ thetechnobear"), 10,
                              30);
@@ -135,10 +138,11 @@ void EditorHost::drawButtonBox(Graphics &g) {
     for (int i = 0; i < 8; i++) { g.drawVerticalLine(x + i * 100, butTopY, 480 - 1); }
 }
 
-void EditorHost::sysEditor() {
+void EditorHost::sysEditor(bool sysEditor) {
     if (!system_) return;
+    if(sysEditor == sysActive_) return;
 
-    sysActive_ = !sysActive_;
+    sysActive_ = sysEditor;
     editor_->setVisible(!sysActive_);
     system_->setVisible(sysActive_);
 }
@@ -200,7 +204,7 @@ void EditorHost::onLeftShiftButton(bool v) {
         editor_->onLeftShiftButton(v);
 
     LSActive_ = v;
-    if (LSActive_ && RSActive_ && system_) sysEditor();
+    if (LSActive_ && RSActive_ && system_) sysEditor(!sysActive_);
 }
 
 void EditorHost::onRightShiftButton(bool v) {
@@ -210,7 +214,7 @@ void EditorHost::onRightShiftButton(bool v) {
         editor_->onRightShiftButton(v);
 
     RSActive_ = v;
-    if (LSActive_ && RSActive_ && system_) sysEditor();
+    if (LSActive_ && RSActive_ && system_) sysEditor(!sysActive_);
 }
 
 void EditorHost::onSSPTimer() {
@@ -273,11 +277,21 @@ void EditorHost::eventButtonCombo(unsigned btn, unsigned comboBtn, bool longPres
     else
         editor_->eventButtonCombo(btn, comboBtn, longPress);
 
-    if(compactUI_) {
-        if ((comboBtn == SSP_Up && btn == SSP_Down) || (comboBtn == SSP_Down && btn == SSP_Up)) { sysEditor(); }
+    if (compactUI_) {
+        if ((comboBtn == SSP_Up && btn == SSP_Down) || (comboBtn == SSP_Down && btn == SSP_Up)) { 
+            ssp::log("system editor btn:" + std::to_string(btn) + " combo:" + std::to_string(comboBtn) + " lp:" + std::to_string(longPress));
+            ssp::log("matching up "+std::to_string(SSP_Up)+" down "+std::to_string(SSP_Down));
+            sysEditor(!sysActive_); 
+        }
     }
 }
 
+void EditorHost::eventButtonHeld(unsigned btn) {
+    if (sysActive_)
+        system_->eventButtonHeld(btn);
+    else
+        editor_->eventButtonHeld(btn);
+}
 
 // up, down, left , right , rs, ls
 bool EditorHost::keyStateChanged(bool isKeyDown) {

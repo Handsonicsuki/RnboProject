@@ -72,7 +72,7 @@ now lets build
 cd examples
 mkdir build 
 cd build
-export BUILDROOT=~/buildroot/arm-rockchip-linux-gnueabihf_sdk-buildroot
+export SSP_BUILDROOT=~/buildroot/arm-rockchip-linux-gnueabihf_sdk-buildroot
 ```
 
 

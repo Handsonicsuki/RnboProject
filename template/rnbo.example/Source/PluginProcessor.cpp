@@ -1,6 +1,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "PluginMiniEditor.h"
 #include "ssp/EditorHost.h"
 
 

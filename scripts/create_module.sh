@@ -1,5 +1,5 @@
 # copy template to new subdirectory
-cp -r template/rnbo.example.ssp "modules/$1"
+cp -r template/rnbo.example "modules/$1"
 
 # update project name Make file
 mv "modules/$1/CMakeLists.txt"  "modules/$1/CMakeLists.tmp"

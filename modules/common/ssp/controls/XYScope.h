@@ -65,7 +65,7 @@ private:
         for (unsigned sigN = 0; sigN < N; sigN++) {
             if (legend_) {
                 static constexpr unsigned fh = 8 * COMPACT_UI_SCALE;
-                Font f(Font::getDefaultMonospacedFontName(), fh, Font::plain);
+                Font f(juce::FontOptions(Font::getDefaultMonospacedFontName(), fh, Font::plain));
                 g.setFont(f);
                 g.setColour(colour_);
 
@@ -88,7 +88,7 @@ private:
             x = (1.0f - (valX + 1.0f) * 0.5f) * w;
             y = (1.0f - (valY + 1.0f) * 0.5f) * h;
             if (t > 0) {
-                g.drawLine(lastX, lastY, x, y, 2.0f);
+                g.drawLine(lastX, lastY, x, y, COMPACT_UI_SCALE);
             }
             lastX = x;
             lastY = y;

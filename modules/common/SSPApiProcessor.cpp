@@ -1,22 +1,22 @@
-//#include "ssp/EditorHost.h"
+// #include "ssp/EditorHost.h"
 
 // This has to be inline since it uses PluginProcessor which is part of the Plugin Project
 SSP_PluginInterface::SSP_PluginInterface(PluginProcessor *p) : processor_(p), editor_(nullptr) {
 #ifdef JUCE_DEBUG
-   juceInitialiser_ = new  ScopedJuceInitialiser_GUI();
+    juceInitialiser_ = new ScopedJuceInitialiser_GUI();
 #endif
 }
 
 SSP_PluginInterface::~SSP_PluginInterface() {
     if (editor_) delete editor_;
     if (processor_) delete processor_;
-    if(juceInitialiser_) delete juceInitialiser_;
+    if (juceInitialiser_) delete juceInitialiser_;
 }
 
 // editor interaction
 Percussa::SSP::PluginEditorInterface *SSP_PluginInterface::getEditor() {
     if (editor_ == nullptr) {
-        ssp::EditorHost *pluginEditor = static_cast<ssp::EditorHost *>( processor_->createEditor());
+        ssp::EditorHost *pluginEditor = static_cast<ssp::EditorHost *>(processor_->createEditor());
         editor_ = new SSP_PluginEditorInterface(pluginEditor);
     }
     return editor_;
@@ -59,12 +59,12 @@ void SSP_PluginInterface::setState(void *buffer, size_t size) {
 void SSP_PluginInterface::prepare(double sampleRate, int samplesPerBlock) {
     unsigned numIn = processor_->getBusCount(true);
     unsigned numOut = processor_->getBusCount(false);
-    processor_->setRateAndBufferSizeDetails(sampleRate,samplesPerBlock);
-//    processor_->setPlayConfigDetails(
-//        numIn,
-//        numOut,
-//        sampleRate,
-//        samplesPerBlock);
+    processor_->setRateAndBufferSizeDetails(sampleRate, samplesPerBlock);
+    //    processor_->setPlayConfigDetails(
+    //        numIn,
+    //        numOut,
+    //        sampleRate,
+    //        samplesPerBlock);
 
     processor_->prepareToPlay(sampleRate, samplesPerBlock);
 }
@@ -77,4 +77,52 @@ void SSP_PluginInterface::process(float **channelData, int numChannels, int numS
 
 void SSP_PluginInterface::useCompactUI(bool b) {
     return processor_->useCompactUI(b);
+}
+
+
+unsigned SSP_PluginInterface::numberOfParameters() {
+    auto &params = processor_->getParameters();
+    return params.size();
+}
+
+bool SSP_PluginInterface::parameterDesc(unsigned idx, ParameterDesc &desc) {
+    auto &params = processor_->getParameters();
+    if (idx >= params.size()) return false;
+
+    auto param = (juce::RangedAudioParameter*) params[idx];
+
+    desc.id_ = param->getParameterID().toStdString();
+    desc.name_ = param->getName(128).toStdString();
+    desc.isDescrete_ = param->isDiscrete();
+    desc.def_ = param->convertFrom0to1(param->getDefaultValue());
+    desc.numSteps_ = param->getNumSteps();
+
+    auto range = param->getNormalisableRange().getRange();
+    desc.min_ = range.getStart();
+    desc.max_ = range.getEnd();
+    return true;
+}
+
+float SSP_PluginInterface::parameterValue(unsigned idx) {
+    auto &params = processor_->getParameters();
+    if (idx >= params.size()) return 0.0f;
+
+    auto p = (juce::RangedAudioParameter*) params[idx];
+    return p->convertFrom0to1(p->getValue());
+}
+
+bool SSP_PluginInterface::parameterValue(unsigned idx, float val) {
+    auto &params = processor_->getParameters();
+    if (idx >= params.size()) return false;
+
+    auto p = (juce::RangedAudioParameter*) params[idx];
+    float norm = p->convertTo0to1(val);
+    if (p->getValue() != norm) {
+        p->beginChangeGesture();
+        p->setValueNotifyingHost(norm);
+        p->endChangeGesture();
+    }
+
+    // params[idx]->setValue(v);
+    return true;
 }

@@ -28,9 +28,8 @@ juce_add_plugin(XXXX
         PLUGIN_MANUFACTURER_CODE XXXX               # A four-character manufacturer id with at least one upper-case character
         PLUGIN_CODE XXXX                            # A unique four-character plugin id with at least one upper-case character
         FORMATS VST3                                # The formats to build. Other valid formats are: AAX Unity VST AU AUv3
+        VST3_AUTO_MANIFEST FALSE
         PRODUCT_NAME "XXXX")                        # The name of the final executable, which can differ from the target name
-
-juce_generate_juce_header(XXXX)
 
 include_directories("${PROJECT_SOURCE_DIR}/../common")
 
@@ -50,7 +49,6 @@ target_sources(XXXX
 
 target_compile_definitions(XXXX
         PUBLIC
-        JUCE_DISPLAY_SPLASH_SCREEN=0
         # JUCE_WEB_BROWSER and JUCE_USE_CURL would be on by default, but you might not need them.
         JUCE_WEB_BROWSER=0  # If you remove this, add `NEEDS_WEB_BROWSER TRUE` to the `juce_add_plugin` call
         JUCE_USE_CURL=0     # If you remove this, add `NEEDS_CURL TRUE` to the `juce_add_plugin` call

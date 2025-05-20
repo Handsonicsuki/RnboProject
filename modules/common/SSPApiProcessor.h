@@ -24,6 +24,10 @@ public:
 
     // extended API
     void useCompactUI(bool b) override;
+    unsigned numberOfParameters() override;
+    bool parameterDesc(unsigned idx, ParameterDesc& desc) override;
+    float parameterValue(unsigned idx) override; 
+    bool parameterValue(unsigned idx, float v) override; 
 
 private:
     SSP_PluginEditorInterface *editor_ = nullptr;

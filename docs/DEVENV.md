@@ -99,47 +99,8 @@ awk     c++-analyzer    ccc-analyzer    gcc
 
 note: this directory can be overriden using environment var (if you need to..)
 ```
-export BUILDROOT=$HOME/buildroot/ssp/arm-rockchip-linux-gnueabihf_sdk-buildroot
+export SSP_BUILDROOT=$HOME/buildroot/ssp/arm-rockchip-linux-gnueabihf_sdk-buildroot
 ```
-
-### VST SDK
-
-the modules are build as VST3 with an interface that then bridges this to the SSP SDK.
-so, we also need to download the VST 3 SDK from steinberg and place into SDKs dirctory
-https://www.steinberg.net/developers/
-
-
-by default build expects the '~/SDKs/'
-```
-mkdir ~/SDKs
-cd ~/SDKs
-```
-then unzip into this diretory
-
-note: expecting SDK in $HOME/SDKs/vst3-sdk", 
-
-you may need to do something like 
-
-```
-unzip VST_SDK.zip
-mv VST_SDK/vst3sdk vst3-sdk
-```
-
-
-then in vst3-sdk you wil seen something like
-```
-% ls ~/SDKs/vst3-sdk 
-CMakeLists.txt          VST3_License_Agreement.pdf  bin             index.html          tools
-LICENSE.txt         VST3_Usage_Guidelines.pdf   cmake               pluginterfaces          vstgui4
-README.md           base                doc             public.sdk
-```
-
-
-note: this directory can be overriden using environment var (if you need to..)
-```
-export VSTSDK=$HOME/SDKs/vst3-sdk
-```
-
 
 
 

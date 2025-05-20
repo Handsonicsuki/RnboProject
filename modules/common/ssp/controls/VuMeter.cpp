@@ -22,7 +22,7 @@ void VuMeter::paint(Graphics &g) {
     static constexpr float lvlRed = rescale(dbRed, dbMin, dbMax, 0.0f, 1.0f);
     static constexpr float lvlYellow = rescale(dbYellow, dbMin, dbMax, 0.0f, 1.0f);
 
-    static constexpr int fh = 16;
+    static constexpr int fh = 8 * COMPACT_UI_SCALE;
     int h = getHeight();
     int w = getWidth();
     int tbh = h - (fh * 2);
@@ -112,14 +112,14 @@ MonoVuMeter::MonoVuMeter() {
 }
 
 void MonoVuMeter::paint(Graphics &g) {
-    static constexpr int fh = 16;
+    static constexpr int fh = 8 * COMPACT_UI_SCALE;
     int h = getHeight();
     int w = getWidth();
 
-    g.setFont(Font(Font::getDefaultMonospacedFontName(), fh, Font::plain));
+    g.setFont(juce::Font(juce::FontOptions(juce::Font::getDefaultMonospacedFontName(), fh, juce::Font::plain)));
 
     if (enabled()) {
-        g.setColour(Colours::red);
+        g.setColour(labelClr_);
     } else {
         g.setColour(Colours::lightgrey);
     }
@@ -159,13 +159,13 @@ StereoVuMeter::StereoVuMeter() {
 }
 
 void StereoVuMeter::paint(Graphics &g) {
-    static constexpr int fh = 16;
+    static constexpr int fh = 8 * COMPACT_UI_SCALE;
     int h = getHeight();
     int w = getWidth();
 
-    g.setFont(Font(Font::getDefaultMonospacedFontName(), fh, Font::plain));
+    g.setFont(juce::Font(juce::FontOptions(juce::Font::getDefaultMonospacedFontName(), fh, juce::Font::plain)));
     if (enabled()) {
-        g.setColour(Colours::red);
+        g.setColour(labelClr_);
     } else {
         g.setColour(Colours::lightgrey);
     }
