@@ -2,17 +2,17 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "ex01_VST3",
+      "name": "DEMO_VST3",
       "type": "cppdbg",
       "request": "launch",
       "program": "/Users/kodiak/bin/AudioPluginHost.app",
-      "args": ["./ex01.filtergraph"],
+      "args": ["./DEMO.filtergraph"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/resources",
       "environment": [],
       "externalConsole": false,
       "MIMode": "lldb",
-      "preLaunchTask": "build ex01_VST3"
+      "preLaunchTask": "build DEMO_VST3"
     }
   ]
 }

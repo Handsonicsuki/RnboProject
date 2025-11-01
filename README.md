@@ -17,9 +17,9 @@ I would recommend installing a Virtual Machine (VM), and run Linux under windows
 
 There are two steps for creating Percussa SSP modules based on RNBO
 
-first, is to create a 'development environment', covered in [docs/DEVENV.md](docs/DEVENV.md)
+first, is to create a 'development environment', covered in [docs/setup.md](docs/setup.md)
 
-second, is to download projects, and build them, covered in [docs/BUILDING.md](docs/BUILDING.md)
+second, is to download projects, and build them, covered in [docs/creatingmodules.md](docs/creatingmodules.md)
 
 
 note: the development enviroment stage is **identical** the one used for the percussa ssp sdk.
@@ -41,7 +41,7 @@ any module created with this project can be used by any SSP user **WITHOUT** MAX
 
 
 # RNBO Version
-tested version :  RNBO v1.3.4
+tested version :  RNBO v1.4.2
 
 
 

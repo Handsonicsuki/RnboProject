@@ -3,14 +3,14 @@
 	"tasks": [
 		{
 			"type": "cmake",
-			"label": "build ex01_VST3",
+			"label": "build DEMO_VST3",
 			"command": "build",
 			"targets": [
-				"ex01_VST3"
+				"DEMO_VST3"
 			],
 			"group": "build",
 			"problemMatcher": [],
-			"detail": "ex01_VST3"
+			"detail": "DEMO_VST3"
 		}
 	]
 }
