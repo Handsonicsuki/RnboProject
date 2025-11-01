@@ -29,7 +29,7 @@ Turn your [Max RNBO](https://cycling74.com/products/rnbo) audio patches into mod
 ✅ **Template system** - Handles all the complex technical details  
 
 ## RNBO Version Support
-Tested with **RNBO v1.4.2**
+Requires **RNBO v1.4.2+** available for Max 8 and Max 9
 
 ## License & Usage
 
