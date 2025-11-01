@@ -35,6 +35,7 @@ sudo apt install cmake git llvm clang g++-10-arm-linux-gnueabihf
 
 1. **Download the buildroot**:  
    SSP  : [arm-rockchip-linux-gnueabihf_sdk-buildroot.tar.gz](https://sw13072022.s3.us-west-1.amazonaws.com/arm-rockchip-linux-gnueabihf_sdk-buildroot.tar.gz)
+
    XMX  :  [aarch64-rockchip-linux-gnu_sdk-buildroot.tar.gz](https://sw13072022.s3.us-west-1.amazonaws.com/aarch64-rockchip-linux-gnu_sdk-buildroot.tar.gz)
 
 2. **Extract to ~/buildroot**:
