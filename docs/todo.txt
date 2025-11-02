@@ -1,3 +1,3 @@
-templates has been updated, and demo compiles correctly and vst runs.
-testing left to do - check vst functionality, check on ssp and xmx
-important to check it has correct io and parameters, also there is code for bools? check this aka enumValues from parameter info.
+already tested to work on SSP.
+only tested on demo example, so needs checking with other rnbo patches, ensure compatibility with rnbo.example.ssp 
+note: previous rnbo patches will need reexporting with RNBO 1.4.2 using new settings (as per docs)
