@@ -78,6 +78,11 @@ or
 
 - Copy the .so file to SSP/XMX SD card in the `plugins` folder
 
+**SSP immport note!!!** 
+Ths project uses the same toolchain I use for my plugins, and on the last release we found it was necessary to use an update synthor which, so I released an 'unofficial' synthor version.
+this must be used for this project, and can be found [here](https://github.com/TheTechnobear/SSP/wiki/Modules%3ATheTechnobear)
+
+
 ## Managing Modules
 
 ### List All Modules
