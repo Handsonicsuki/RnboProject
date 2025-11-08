@@ -168,6 +168,14 @@ class EnvironmentChecker:
                 self.log_issue("XMX_BUILDROOT path does not exist: " + xmx_buildroot)
         else:
             self.log_warning("XMX_BUILDROOT not set (only needed for XMX builds)")
+            # Check default location
+            default_path = Path.home() / "buildroot" / "aarch64-rockchip-linux-gnu_sdk-buildroot"
+            if default_path.exists():
+                self.log_success("Default XMX buildroot found: " + str(default_path))
+                self.log_warning("Consider setting XMX_BUILDROOT environment variable")
+            else:
+                self.log_issue("XMX_BUILDROOT not set and default location not found")
+                self.log_issue("Download from: https://sw13072022.s3.us-west-1.amazonaws.com/aarch64-rockchip-linux-gnu_sdk-buildroot.tar.gz ? ")
 
     def check_project_structure(self):
         """Check project structure and dependencies"""
