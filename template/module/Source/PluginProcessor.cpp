@@ -187,8 +187,13 @@ const String PluginProcessor::getInputBusName(int channelIndex) {
     RNBO::__MOD__Rnbo<RNBO::MinimalEngine<>> patch;
     patch.initialize();
     unsigned I_MAX = patch.getNumInputChannels();
-    if (channelIndex < I_MAX) { return "In " + String(channelIndex); }
-    return "ZZIn-" + String(channelIndex);
+    String name;
+    switch (channelIndex) {
+        default: name = "In " + String(channelIndex + 1); break;
+            break;
+    }
+    if (channelIndex < I_MAX) { return name; }
+    return "ZZIn " + String(channelIndex + 1);
 }
 
 
@@ -196,8 +201,12 @@ const String PluginProcessor::getOutputBusName(int channelIndex) {
     RNBO::__MOD__Rnbo<RNBO::MinimalEngine<>> patch;
     patch.initialize();
     unsigned O_MAX = patch.getNumOutputChannels();
-    if (channelIndex < O_MAX) { return "Out " + String(channelIndex); }
-    return "ZZOut-" + String(channelIndex);
+    String name;
+    switch (channelIndex) {
+        default: name = "Out " + String(channelIndex + 1); break;
+    }
+    if (channelIndex < O_MAX) { return name; }
+    return "ZZOut " + String(channelIndex + 1);
 }
 
 void PluginProcessor::prepareToPlay(double sampleRate, int samplesPerBlock) {

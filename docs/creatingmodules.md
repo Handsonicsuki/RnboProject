@@ -104,6 +104,69 @@ python3 scripts/removeModule.py YOUR_MODULE
 - **Subsequent builds**: Much faster (only your changes)
 - **Clean builds**: Delete build folders and start fresh if you have issues 
 
+
+### Custom Input / Output names
+You can customise the input and output name, by editing `modules/[yourmodule]/Source/PluginProcessor.cpp`
+This is a bit of an advance task, but still fairly simple.
+You need to look for `getInputBusName` and `getOutoutBusName` methods.
+
+let's just look at Input, as Output is identical.
+you will see the code looks like this : 
+
+```c++
+const String PluginProcessor::getInputBusName(int channelIndex) {
+    RNBO::DEMORnbo<RNBO::MinimalEngine<>> patch;
+    patch.initialize();
+    unsigned I_MAX = patch.getNumInputChannels();
+    String name;
+    switch (channelIndex) {
+        default: name = "In " + String(channelIndex + 1); break;
+    }
+    if (channelIndex < I_MAX) { return name; }
+    return "ZZIn-" + String(channelIndex);
+}
+```
+
+notice, how a default case is used.
+all we need to do is add some specific cases.
+
+this takes the form of.
+```c++
+        case [channel number] : name = "[custom name]"; break;
+```
+
+it's important to notice that channel number starts from zero **not** one ! 
+and you can add as many of these lines as you have inputs (outputs)
+
+be very careful / precice when doing this.
+
+let's look at an example, we rename (from `In N` to `Input N`)
+
+```c++
+const String PluginProcessor::getInputBusName(int channelIndex) {
+    RNBO::DEMORnbo<RNBO::MinimalEngine<>> patch;
+    patch.initialize();
+    unsigned I_MAX = patch.getNumInputChannels();
+    String name;
+    switch (channelIndex) {
+        case 0 : name = "Input 1"; break;
+        case 1 : name = "Input 2"; break;
+        case 2 : name = "Input 3"; break;
+        case 3 : name = "Input 4"; break;
+        default: name = "In " + String(channelIndex + 1); break;
+    }
+    if (channelIndex < I_MAX) { return name; }
+    return "ZZIn-" + String(channelIndex);
+}
+```
+
+***Important Notes / Tips** 
+- Edit precisely
+- Channel Index is zero based
+- Lookup the in/output order in RNBO
+- It'll default to "In N", if you dont supply enough 'cases`
+- ZZIn/ZZOut should never be seen, unless you have a build/export issue
+
 ### Troubleshooting
 
 **Module won't build?**
