@@ -172,17 +172,9 @@ def print_next_steps(module_id: str) -> None:
     print(f"1. Export your RNBO code to:")
     print(f"   modules{os.sep}{module_id}{os.sep}{module_id}-rnbo{os.sep}")
     print("\n2. Build the module:")
-    if os.name == 'nt':  # Windows
-        print("   cmake --fresh -B build,ssp -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=./xcSSP.cmake && cmake --build build.ssp ")
-        print("   cmake --fresh -B build.xmx -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=./xcXMX.cmake && cmake --build build.xmx ")
-    else:  # Unix-like (macOS, Linux)
-        print("   cmake --fresh -B build,ssp -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=./xcSSP.cmake && cmake --build build.ssp ")
-        print("   cmake --fresh -B build.xmx -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=./xcXMX.cmake && cmake --build build.xmx ")
-    print("\n3. For local testing (VST3):")
-    if os.name == 'nt':  # Windows
-        print("   cmake --fresh -B build && cmake --build build ")
-    else:  # Unix-like (macOS, Linux)
-        print("   cmake --fresh -B build && cmake --build build ")
+    print("   cmake --fresh -B build.ssp -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=./xcSSP.cmake && cmake --build build.ssp ")
+    print("   cmake --fresh -B build.xmx -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=./xcXMX.cmake && cmake --build build.xmx ")
+    print("   cmake --fresh -B build && cmake --build build ")
     print("\nFor more details, see docs/BUILDING.md")
 
 
